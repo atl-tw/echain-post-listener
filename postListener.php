@@ -8,10 +8,7 @@ $client = new Mosquitto\Client('PostListenerClient');
 
 /* when connection is complete, send the received $_POST */
 $client->onConnect(function() use ($client) {
-    $topic = 'office/uhfrfid/echain';
-    $qos = 2;
-    $retain = false;
-    $client->publish($topic, 'publish from php', $qos, $retain);
+    $client->publish('office/uhfrfid/echain', 'publish from php');
 });
 
 $client->connect('atliot.com', 1883);
