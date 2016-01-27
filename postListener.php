@@ -2,15 +2,12 @@
 
 use Mosquitto\Client;
 
-/*when this php file is hit, it attempts to connect, puts message on queue, then disconnects*/
+error_log($_POST['test'].PHP_EOL, 3, "/var/log/php_errors.log");
 
 $client = new Mosquitto\Client('PostListenerClient');
 
-/* when connection is complete, send the received $_POST */
-$client->onConnect(function() use ($client) {
-    $client->publish('office/uhfrfid/echain', 'publish from php');
-});
-
 $client->connect('atliot.com', 1883);
+$client->publish('office/uhfrfid/echain', 'publish from php');
+$client->disconnect();
 
 ?>
